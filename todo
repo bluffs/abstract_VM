@@ -1,0 +1,19 @@
+0. check nb of arguments
+
+if file
+1. read file to check the instructions
+2. and register all the lines in a vector
+
+if no file
+1.1. read lines with getline()
+
+3. execute line by line from vector
+3.1. execute line by line with getline()
+
+4. exception raised or end of program, clean everything and exit the loop
+
+
+
+3*
+create IOperand using factory method
+use template for IOperand
