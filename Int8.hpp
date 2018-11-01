@@ -6,7 +6,7 @@
 class Int8 : public IOperand
 {
 	private:
-		int8_t			_value;
+		long			_value;
 		std::string		_str;
 		
 		Int8();
@@ -26,7 +26,9 @@ class Int8 : public IOperand
 		virtual ~Int8( void ) {}
 
 		Int8(int nb);
-		int8_t				getValue();
+		Int8(Int8 const & nb);
+		Int8& operator=(Int8 const & nb);
+		long				getValue();
 };
 
 #endif

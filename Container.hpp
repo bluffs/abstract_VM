@@ -7,7 +7,7 @@
 class Container
 {
 	private:
-		std::vector<IOperand*>	_vector;
+		std::vector<const IOperand*>	_vector;
 
 	public:
 		Container();
@@ -16,9 +16,10 @@ class Container
 		~Container();
 
 		void	push(IOperand *op);
+		void	push(const IOperand *op);
 		void	pop();
 		void	dump();
-		void	assert(IOperand op);
+		void	assert(IOperand *op);
 		void	add();
 		void	sub();
 		void	mul();

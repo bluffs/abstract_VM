@@ -18,6 +18,11 @@ void	Container::push(IOperand *op)
 	_vector.insert(_vector.begin(), op);
 }
 
+void	Container::push(const IOperand *op)
+{
+	_vector.insert(_vector.begin(), op);
+}
+
 void	Container::pop()
 {
 	//throw exception empty stack
@@ -29,7 +34,7 @@ void	Container::pop()
 void	Container::dump()
 {
 	//std::cout << "Container dump" << std::endl;
-	//std::cout << "size = " << _vector.size() << std::endl;
+	std::cout << "size = " << _vector.size() << std::endl;
 	/*for (unsigned int i = 0; i < _stack.size(); i++)
 	{
 		std::cout << _stack.top()->toString() << std::endl;
@@ -48,10 +53,10 @@ void	Container::dump()
 	}
 }
 
-void	Container::assert(IOperand op)
+void	Container::assert(IOperand *op)
 {
 	//throw exception no assert
-	if (op != _vector.begin())
+	if (op != *(_vector.begin()))
 	{}
 }
 
