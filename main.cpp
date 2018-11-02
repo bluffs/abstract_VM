@@ -14,7 +14,8 @@ int main()
 	const	Int8		*num5 = dynamic_cast<const Int8*>(*num3 + *num2);
 	const	Int8		*num6 = dynamic_cast<const Int8*>(*num5 - *num);
 	const	Int8		*num7 = dynamic_cast<const Int8*>(*num2 * *num2);
-	if (num == NULL)
+	const	Int8		*num8 = dynamic_cast<const Int8*>(*num5 / *num);
+	if (num5 == NULL)
 		std::cout << "cast is null" << std::endl;
 
 	con.push(num);
@@ -24,6 +25,7 @@ int main()
 	con.push(num5);
 	con.push(num6);
 	con.push(num7);
+	con.push(num8);
 	con.dump();
 	return 0;
 }

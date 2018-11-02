@@ -56,7 +56,7 @@ IOperand const *	Int8::operator+(IOperand const & rhs) const
 IOperand const *	Int8::operator-(IOperand const & rhs) const
 {
 	if (rhs.getPrecision() > getPrecision())
-		return (rhs + *this);
+		return (rhs - *this); // TODO change this
 	Int8 *ope = new Int8;
 	*ope = *this;
 	long value = stol(rhs.toString());
@@ -68,7 +68,7 @@ IOperand const *	Int8::operator-(IOperand const & rhs) const
 IOperand const *	Int8::operator*(IOperand const & rhs) const
 {
 	if (rhs.getPrecision() > getPrecision())
-		return (rhs + *this);
+		return (rhs * *this);
 	Int8 *ope = new Int8;
 	*ope = *this;
 	long value = stol(rhs.toString());
@@ -81,15 +81,25 @@ IOperand const *	Int8::operator/(IOperand const & rhs) const
 {
 	if (rhs.toString() == "0")
 		throw(std::exception()); // create an exception for division by 0
+	if (getType() == eInt8)
+		std::cout << "type = " << getType() << std::endl;
 	if (rhs.getPrecision() > getPrecision())
 	{
-		if (getType)
+		std::cout << getType() << std::endl;
+		if (getType() == eInt16)
+			std::cout << "create an int16" << std::endl;
+		if (getType() == eInt32)
+			std::cout << "create an int32" << std::endl;
+		if (getType() == eFloat)
+			std::cout << "create a float" << std::endl;
+		if (getType() == eDouble)
+			std::cout << "create a double" << std::endl;
 		// create an instance of rhs with value = this / rhs
 	}
 	Int8 *ope = new Int8;
 	*ope = *this;
 	long value = stol(rhs.toString());
-	ope->_value *= value;
+	ope->_value /= value;
 	ope->_str = std::to_string(ope->_value);
 	return ope;
 
