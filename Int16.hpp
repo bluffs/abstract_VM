@@ -1,15 +1,15 @@
-#ifndef __INT8_HPP
-#define __INT8_HPP
+#ifndef __INT16_HPP
+#define __INT16_HPP
 
 #include "IOperand.hpp"
 
-class Int8 : public IOperand
+class Int16 : public IOperand
 {
 	private:
 		double			_value;
 		std::string		_str;
 		
-		Int8();
+		Int16();
 
 	public:
 		virtual int				getPrecision( void ) const;
@@ -23,12 +23,12 @@ class Int8 : public IOperand
 
 		virtual std::string const & toString( void ) const;
 
-		virtual ~Int8( void ) {}
+		virtual ~Int16( void ) {}
 
-		Int8(double nb);
-		Int8(Int8 const & nb);
-		Int8& operator=(Int8 const & nb);
-		double					getValue() const;
+		Int16(double nb);
+		Int16(Int16 const & nb);
+		Int16& operator=(Int16 const & nb);
+		double				getValue() const;
 };
 
 #endif
