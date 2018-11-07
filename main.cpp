@@ -1,15 +1,37 @@
 #include <iostream>
+#include <fstream>
 
 #include "Container.hpp"
 #include "IOperand.hpp"
 #include "Int8.hpp"
 #include "Int16.hpp"
+#include "Program.hpp"
 
-int main()
+int main(int argc, char** argv)
 {
 	Container	con;
 
-	Int8		*num = new Int8(5);
+	if (argc > 2)
+	{
+		std::cout << "Usage : ./abstract_vm [filename]" << std::endl;
+	}
+	Program	prog;
+	if (argc == 2)
+	{
+		std::ifstream file(argv[1]);
+		std::string	line;
+		while (getline(file, line))
+		{
+			std::cout << line << std::endl;
+			//check();
+			prog.push(line);
+		}
+	}
+	else
+	{
+		//read from standard input
+	}
+	/*Int8		*num = new Int8(5);
 	Int8		*num2 = new Int8(7);
 	Int8		*num3 = new Int8(23);
 	Int8		num4(*num);
@@ -40,6 +62,6 @@ int main()
 	con.push(num12);
 	con.push(num13);
 	con.push(num14);
-	con.dump();
+	con.dump();*/
 	return 0;
 }
