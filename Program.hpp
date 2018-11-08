@@ -9,7 +9,8 @@ class Program
 {
 	private:
 		std::vector<std::string>	_inst;
-		Container					_cont
+		Container					_cont;
+
 	
 	public:
 		Program();
@@ -18,7 +19,8 @@ class Program
 		Program&	operator=(Program const &);
 
 		void			push(std::string);
-		void			execute();
+		void			executeAll();
+		void			executeLine(std::string & str);
 };
 
 #endif

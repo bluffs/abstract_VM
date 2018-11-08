@@ -3,8 +3,15 @@
 
 int main()
 {
-	std::string	str("Int32(42.21)");
-	std::regex re("(.*)\\((.*)\\)");
+	//std::string	str("Int32(42.21)");
+	//std::regex re("(.*)\\((.*)\\)");
+	
+	//std::string str("push int32(42)");
+	std::string str(";com");
+	//std::string str("add");
+	//std::regex re("(.*^ )?([ ]?.*)");
+	//std::regex re("([a-z]*)[[ ]?(.*)]*"); // regex for instruction + value
+	std::regex	re("([^;]*){1}[;]?");
 
 	std::smatch match;
 	if (regex_search(str, match, re))
@@ -13,6 +20,10 @@ int main()
 		if (match.size() != 3)
 		{
 			std::cout << "bad match" << std::endl;
+			for (unsigned int i = 1; i < match.size(); i++)
+			{
+				std::cout << "match " << i << " : " << match.str(i) << std::endl;
+			}
 			return 0;
 		}
 		for (unsigned int i = 1; i < match.size(); i++)
