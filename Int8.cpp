@@ -48,14 +48,14 @@ IOperand const *	Int8::operator+(IOperand const & rhs) const
 {
 	if (rhs.getType() == eInt8)
 	{
-		std::cout << "create an Int8" << std::endl;
+		//std::cout << "create an Int8" << std::endl;
 		const Int8 num = dynamic_cast<Int8 const &>(rhs);
 		Int8	*num2 = new Int8(getValue() + num.getValue());
 		return num2;
 	}
 	if (rhs.getType() == eInt16)
 	{
-		std::cout << "create an int16" << std::endl;
+		//std::cout << "create an int16" << std::endl;
 		const Int16	num = dynamic_cast<Int16 const &>(rhs);
 		Int16	*num2 = new Int16(getValue() + num.getValue());
 		//if overflow throw
@@ -63,7 +63,7 @@ IOperand const *	Int8::operator+(IOperand const & rhs) const
 	}
 	if (getType() == eInt32)
 	{
-		std::cout << "create an int32" << std::endl;
+		//std::cout << "create an int32" << std::endl;
 		const Int32	num = dynamic_cast<Int32 const &>(rhs);
 		Int32	*num2 = new Int32(getValue() + num.getValue());
 		//if overflow throw

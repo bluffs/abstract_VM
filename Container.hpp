@@ -3,11 +3,13 @@
 
 #include <vector>
 #include "IOperand.hpp"
+#include "Factory.hpp"
 
 class Container
 {
 	private:
 		std::vector<const IOperand*>	_vector;
+		Factory							_factory;
 
 	public:
 		Container();
@@ -19,7 +21,7 @@ class Container
 		void	push(const IOperand *op);
 		void	pop();
 		void	dump();
-		void	assert(IOperand *op);
+		void	assert(const IOperand *op);
 		void	add();
 		void	sub();
 		void	mul();

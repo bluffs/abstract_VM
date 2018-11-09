@@ -3,15 +3,16 @@
 
 int main()
 {
-	//std::string	str("Int32(42.21)");
+	std::string	str("int32(42)");
 	//std::regex re("(.*)\\((.*)\\)");
 	
-	//std::string str("push int32(42)");
-	std::string str(";com");
+	//std::string str("push int32(42.21)");
+	//std::string str(";com");
 	//std::string str("add");
 	//std::regex re("(.*^ )?([ ]?.*)");
 	//std::regex re("([a-z]*)[[ ]?(.*)]*"); // regex for instruction + value
-	std::regex	re("([^;]*){1}[;]?");
+	std::regex re("([^\\(]*)[\\()]{1}(.*)[\\)]{1}");
+	//std::regex	re("([^;]*){1}[;]?");
 
 	std::smatch match;
 	if (regex_search(str, match, re))

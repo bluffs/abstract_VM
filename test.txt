@@ -1,8 +1,21 @@
 push int8(5)
 pop
 dump
-push
-push
+push int16(24)
+push float(42.4)
 add
 dump
+push int8(112)
+push int8(111)
+push int8(108)
+push int8(112)
+dump
+print
+pop
+print
+pop
+print
+pop
+print
+pop
 exit

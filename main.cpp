@@ -22,15 +22,16 @@ int main(int argc, char** argv)
 		std::string	line;
 		while (getline(file, line))
 		{
-			std::cout << line << std::endl;
-			//check();
+			//std::cout << line << std::endl;
 			prog.push(line);
 		}
+		//check();
 	}
 	else
 	{
 		//read from standard input
 	}
+	prog.executeAll();
 	/*Int8		*num = new Int8(5);
 	Int8		*num2 = new Int8(7);
 	Int8		*num3 = new Int8(23);

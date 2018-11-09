@@ -4,12 +4,14 @@
 #include <vector>
 #include <string>
 #include "Container.hpp"
+#include "Factory.hpp"
 
 class Program
 {
 	private:
 		std::vector<std::string>	_inst;
 		Container					_cont;
+		Factory						_factory;
 
 	
 	public:
