@@ -2,12 +2,14 @@
 #define __INT8_HPP
 
 #include "IOperand.hpp"
+#include "Factory.hpp"
 
 class Int8 : public IOperand
 {
 	private:
-		double			_value;
+		char			_value;
 		std::string		_str;
+		Factory			_fact;
 		
 		Int8();
 

@@ -1,14 +1,31 @@
-push int8(5)
+;commentaire
+add;my com
+push int8(5) ;super comment
+;;comment
+assert int8(5)
+assert int8(6)
+assert int16(5)
+test
+add
+pop
 pop
 dump
-push int16(24)
+push int8(24)
 push float(42.4)
 add
 dump
+push int32(0)
+push int32(50)
+div
+pop
+pop
 push int8(112)
 push int8(111)
 push int8(108)
 push int8(112)
+push int16(112)
+print
+pop
 dump
 print
 pop

@@ -2,12 +2,14 @@
 #define __INT16_HPP
 
 #include "IOperand.hpp"
+#include "Factory.hpp"
 
 class Int16 : public IOperand
 {
 	private:
-		double			_value;
+		short int		_value;
 		std::string		_str;
+		Factory			_fact;
 		
 		Int16();
 

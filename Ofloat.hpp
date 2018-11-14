@@ -2,12 +2,14 @@
 #define __OFLOAT_HPP
 
 #include "IOperand.hpp"
+#include "Factory.hpp"
 
 class Ofloat : public IOperand
 {
 	private:
-		double			_value;
+		float			_value;
 		std::string		_str;
+		Factory			_fact;
 		
 		Ofloat();
 

@@ -1,9 +1,8 @@
 #include <string>
 #include <cmath>
+#include <sstream>
 
 #include "Int8.hpp"
-#include "Int16.hpp"
-#include "Int32.hpp"
 #include "tools.hpp"
 
 Int8::Int8()
@@ -11,10 +10,11 @@ Int8::Int8()
 }
 
 Int8::Int8(double nb) :
-	_value(nb),
-	_str(std::to_string(nb))
+	_value(nb)
 {
-	std::cout << "int8 constructor value = " << _value << std::endl;
+	std::stringstream ss;
+	ss << nb;
+	_str = ss.str();
 }
 
 double	Int8::getValue() const
@@ -46,176 +46,79 @@ eOperandType	Int8::getType() const
 
 IOperand const *	Int8::operator+(IOperand const & rhs) const
 {
-	if (rhs.getType() == eInt8)
-	{
-		//std::cout << "create an Int8" << std::endl;
-		const Int8 num = dynamic_cast<Int8 const &>(rhs);
-		Int8	*num2 = new Int8(getValue() + num.getValue());
-		return num2;
-	}
-	if (rhs.getType() == eInt16)
-	{
-		//std::cout << "create an int16" << std::endl;
-		const Int16	num = dynamic_cast<Int16 const &>(rhs);
-		Int16	*num2 = new Int16(getValue() + num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eInt32)
-	{
-		//std::cout << "create an int32" << std::endl;
-		const Int32	num = dynamic_cast<Int32 const &>(rhs);
-		Int32	*num2 = new Int32(getValue() + num.getValue());
-		//if overflow throw
-		return num2;
-	}
+	double val = std::stod(rhs.toString());
 
-	if (getType() == eFloat)
-		std::cout << "create a float" << std::endl;
-	if (getType() == eDouble)
-		std::cout << "create a double" << std::endl;
-
-	return this;
+	val += _value;
+	if (getType() >= rhs.getType())
+	{
+		return (_fact.createOperand(getType(), std::to_string(val)));
+	}
+	else
+	{
+		return (_fact.createOperand(rhs.getType(), std::to_string(val)));
+	}
 }
 
 IOperand const *	Int8::operator-(IOperand const & rhs) const
 {
-	std::cout << rhs.getType() << std::endl;
-	if (rhs.getType() == eInt8)
-	{
-		std::cout << "create an Int8" << std::endl;
-		const Int8 num = dynamic_cast<Int8 const &>(rhs);
-		Int8	*num2 = new Int8(getValue() - num.getValue());
-		return num2;
-	}
-	if (rhs.getType() == eInt16)
-	{
-		std::cout << "create an int16" << std::endl;
-		const Int16	num = dynamic_cast<Int16 const &>(rhs);
-		Int16	*num2 = new Int16(getValue() - num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eInt32)
-	{
-		std::cout << "create an int32" << std::endl;
-		const Int32	num = dynamic_cast<Int32 const &>(rhs);
-		Int32	*num2 = new Int32(getValue() - num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eFloat)
-		std::cout << "create a float" << std::endl;
-	if (getType() == eDouble)
-		std::cout << "create a double" << std::endl;
-	// create an instance of rhs with value = this / rhs
+	double val = std::stod(rhs.toString());
 
-	return this;
+	val -= _value;
+	if (getType() >= rhs.getType())
+	{
+		return (_fact.createOperand(getType(), std::to_string(val)));
+	}
+	else
+	{
+		return (_fact.createOperand(rhs.getType(), std::to_string(val)));
+	}
 }
 
 IOperand const *	Int8::operator*(IOperand const & rhs) const
 {
-	if (rhs.getType() == eInt8)
-	{
-		std::cout << "create an Int8" << std::endl;
-		const Int8 num = dynamic_cast<Int8 const &>(rhs);
-		Int8	*num2 = new Int8(getValue() * num.getValue());
-		return num2;
-	}
-	if (rhs.getType() == eInt16)
-	{
-		std::cout << "create an int16" << std::endl;
-		const Int16	num = dynamic_cast<Int16 const &>(rhs);
-		Int16	*num2 = new Int16(getValue() * num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eInt32)
-	{
-		std::cout << "create an int32" << std::endl;
-		const Int32	num = dynamic_cast<Int32 const &>(rhs);
-		Int32	*num2 = new Int32(getValue() * num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eFloat)
-		std::cout << "create a float" << std::endl;
-	if (getType() == eDouble)
-		std::cout << "create a double" << std::endl;
+	double val = std::stod(rhs.toString());
 
-	return this;
+	val *= _value;
+	if (getType() >= rhs.getType())
+	{
+		return (_fact.createOperand(getType(), std::to_string(val)));
+	}
+	else
+	{
+		return (_fact.createOperand(rhs.getType(), std::to_string(val)));
+	}
 }
 
 IOperand const *	Int8::operator/(IOperand const & rhs) const
 {
-	if (rhs.toString() == "0")
-		throw(std::exception()); // create an exception for division by 0
+	double val = std::stod(rhs.toString());
 
-	if (rhs.getType() == eInt8)
+	// if val == 0 throw exception
+	val /= _value;
+	if (getType() >= rhs.getType())
 	{
-		std::cout << "create an Int8" << std::endl;
-		const Int8 num = dynamic_cast<Int8 const &>(rhs);
-		Int8	*num2 = new Int8(getValue() / num.getValue());
-		return num2;
+		return (_fact.createOperand(getType(), std::to_string(val)));
 	}
-	if (rhs.getType() == eInt16)
+	else
 	{
-		std::cout << "create an int16" << std::endl;
-		const Int16	num = dynamic_cast<Int16 const &>(rhs);
-		Int16	*num2 = new Int16(getValue() / num.getValue());
-		//if overflow throw
-		return num2;
+		return (_fact.createOperand(rhs.getType(), std::to_string(val)));
 	}
-	if (getType() == eInt32)
-	{
-		std::cout << "create an int32" << std::endl;
-		const Int32	num = dynamic_cast<Int32 const &>(rhs);
-		Int32	*num2 = new Int32(getValue() / num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eFloat)
-		std::cout << "create a float" << std::endl;
-	if (getType() == eDouble)
-		std::cout << "create a double" << std::endl;
-
-
-	return this;
 }
 
 IOperand const *	Int8::operator%(IOperand const & rhs) const
 {
-	if (rhs.toString() == "0")
-		throw(std::exception()); // create an exception for division by 0
+	double val = std::stod(rhs.toString());
 
-	if (rhs.getType() == eInt8)
+	//if val == 0 throw exception
+	val = fmod(_value, val);
+	if (getType() >= rhs.getType())
 	{
-		std::cout << "create an Int8" << std::endl;
-		const Int8 num = dynamic_cast<Int8 const &>(rhs);
-		Int8	*num2 = new Int8(fmod(getValue(), num.getValue()));
-		return num2;
+		return (_fact.createOperand(getType(), std::to_string(val)));
 	}
-	if (rhs.getType() == eInt16)
+	else
 	{
-		std::cout << "create an int16" << std::endl;
-		const Int16	num = dynamic_cast<Int16 const &>(rhs);
-		Int16	*num2 = new Int16(fmod(getValue(), num.getValue()));
-		//if overflow throw
-		return num2;
+		return (_fact.createOperand(rhs.getType(), std::to_string(val)));
 	}
-	if (getType() == eInt32)
-	{
-		std::cout << "create an int32" << std::endl;
-		const Int32	num = dynamic_cast<Int32 const &>(rhs);
-		Int16	*num2 = new Int16(fmod(getValue(), num.getValue()));
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eFloat)
-		std::cout << "create a float" << std::endl;
-	if (getType() == eDouble)
-		std::cout << "create a double" << std::endl;
-	return this;
 }
 
 std::string const &	Int8::toString() const

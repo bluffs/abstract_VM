@@ -28,13 +28,9 @@ void	Program::push(std::string line)
 {
 	std::regex	reg("([^;]*){1}[;]?");
 	std::smatch	match;
-	if (regex_search(line, match, reg))
+	if (regex_search(line, match, reg) && match.str(1) != "")
 	{
 		_inst.push_back(match.str(1));
-	}
-	else
-	{
-		//throw exception
 	}
 }
 
@@ -43,19 +39,22 @@ void	Program::executeAll()
 	size_t	size = _inst.size();
 	for (size_t i = 0; i < size; i++)
 	{
-		executeLine(_inst[i]);
+		try
+		{
+			executeLine(_inst[i]);
+		}
+		catch(std::exception &e)
+		{
+			std::cout << "\033[1;31m" << e.what() << "\033[0m" << std::endl;
+		}
 	}
 }
 
 void	Program::executeLine(std::string & str)
 {
-	std::regex reg("([a-z]*)[[ ]?(.*)]*");	
+	std::regex reg("([a-z]*)[[ ]?(.*)]*");
 	std::smatch match;
 
-	if (str[0] == ';')
-	{
-		return ;
-	}
 	if (regex_search(str, match, reg))
 	{
 		if (match.str(1) == "push")
@@ -89,7 +88,6 @@ void	Program::executeLine(std::string & str)
 			std::smatch match2;
 			if (regex_search(match.str(2), match2, reg2))
 			{
-				//std::cout << match2.str(1) << std::endl;
 				if (match2.str(1) == "int8")
 					type = eInt8;
 				else if (match2.str(1) == "int16")
@@ -118,9 +116,28 @@ void	Program::executeLine(std::string & str)
 			_cont.print();
 		else if (match.str(1) == "exit")
 			_cont.exit();
+		else
+		{
+			std::cout << "match1 = " << match.str(1) << " match2 = " << match.str(2) << std::endl;
+			throw(BadInstructionException());
+		}
 	}
 	else
 	{
+		std::cout << "NO REGEX MATCH" << std::endl;
 		//throw exception
 	}
+}
+
+Program::BadInstructionException::BadInstructionException()
+{
+}
+
+Program::BadInstructionException::~BadInstructionException() throw()
+{
+}
+
+const char*	Program::BadInstructionException::what() const throw()
+{
+	return ("Bad instruction");
 }

@@ -2,12 +2,14 @@
 #define __INT32_HPP
 
 #include "IOperand.hpp"
+#include "Factory.hpp"
 
 class Int32 : public IOperand
 {
 	private:
-		double			_value;
+		int				_value;
 		std::string		_str;
+		Factory			_fact;
 		
 		Int32();
 

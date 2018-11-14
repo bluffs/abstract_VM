@@ -2,12 +2,14 @@
 #define __ODOUBLE_HPP
 
 #include "IOperand.hpp"
+#include "Factory.hpp"
 
 class Odouble : public IOperand
 {
 	private:
 		double			_value;
 		std::string		_str;
+		Factory			_fact;
 		
 		Odouble();
 

@@ -1,284 +1,127 @@
 #include <string>
 #include <cmath>
+#include <sstream>
 
-#include "Int8.hpp"
-#include "Int16.hpp"
-#include "Int32.hpp"
 #include "Ofloat.hpp"
-#include "Odouble.hpp"
 #include "tools.hpp"
 
-Odouble::Odouble()
+Ofloat::Ofloat()
 {
 }
 
-Odouble::Odouble(double nb) :
-	_value(nb),
-	_str(std::to_string(nb))
+Ofloat::Ofloat(double nb) :
+	_value(nb)
 {
-	std::cout << "Odouble constructor value = " << _value << std::endl;
+	std::stringstream	ss;
+	ss << nb;
+	_str = ss.str();
 }
 
-double	Odouble::getValue() const
+double	Ofloat::getValue() const
 {
 	return _value;
 }
 
-Odouble::Odouble(Odouble const & nb)
+Ofloat::Ofloat(Ofloat const & nb)
 {
 	*this = nb;
 }
 
-Odouble& Odouble::operator=(Odouble const & nb)
+Ofloat& Ofloat::operator=(Ofloat const & nb)
 {
 	_value = nb._value;
 	_str = nb._str;
 	return *this;
 }
 
-int		Odouble::getPrecision( void ) const
+int		Ofloat::getPrecision( void ) const
 {
 	return 32;
 }
 
-eOperandType	Odouble::getType() const
+eOperandType	Ofloat::getType() const
 {
 	return eFloat;
 }
 
-IOperand const *	Odouble::operator+(IOperand const & rhs) const
+IOperand const *	Ofloat::operator+(IOperand const & rhs) const
 {
-	if (rhs.getType() == eInt8)
-	{
-		std::cout << "create an Int8" << std::endl;
-		const Int8 num = dynamic_cast<Int8 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() + num.getValue());
-		return num2;
-	}
-	if (rhs.getType() == eInt16)
-	{
-		std::cout << "create an int16" << std::endl;
-		const Int16	num = dynamic_cast<Int16 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() + num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eInt32)
-	{
-		std::cout << "create an int32" << std::endl;
-		const Int32	num = dynamic_cast<Int32 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() + num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eFloat)
-	{
-		std::cout << "create a float" << std::endl;
-		const Ofloat	num = dynamic_cast<Ofloat const &>(rhs);
-		Ofloat	*num2 = new Ofloat(getValue() + num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eDouble)
-	{
-		std::cout << "create a double" << std::endl;
-		const Odouble	num = dynamic_cast<Odouble const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() + num.getValue());
-		//if overflow throw
-		return num2;
-	}
+	double val = std::stod(rhs.toString());
 
-	return this;
+	val += _value;
+	if (getType() >= rhs.getType())
+	{
+		return (_fact.createOperand(getType(), std::to_string(val)));
+	}
+	else
+	{
+		return (_fact.createOperand(rhs.getType(), std::to_string(val)));
+	}
 }
 
-IOperand const *	Odouble::operator-(IOperand const & rhs) const
+IOperand const *	Ofloat::operator-(IOperand const & rhs) const
 {
-	std::cout << rhs.getType() << std::endl;
-	if (rhs.getType() == eInt8)
-	{
-		std::cout << "create an Int8" << std::endl;
-		const Int8 num = dynamic_cast<Int8 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() - num.getValue());
-		return num2;
-	}
-	if (rhs.getType() == eInt16)
-	{
-		std::cout << "create an int16" << std::endl;
-		const Int16	num = dynamic_cast<Int16 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() - num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eInt32)
-	{
-		std::cout << "create an int32" << std::endl;
-		const Int32	num = dynamic_cast<Int32 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() - num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eFloat)
-	{
-		std::cout << "create a float" << std::endl;
-		const Ofloat	num = dynamic_cast<Ofloat const &>(rhs);
-		Ofloat	*num2 = new Ofloat(getValue() - num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eDouble)
-	{
-		std::cout << "create a double" << std::endl;
-		const Odouble	num = dynamic_cast<Odouble const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() - num.getValue());
-		//if overflow throw
-		return num2;
-	}
+	double val = std::stod(rhs.toString());
 
-	return this;
+	val -= _value;
+	if (getType() >= rhs.getType())
+	{
+		return (_fact.createOperand(getType(), std::to_string(val)));
+	}
+	else
+	{
+		return (_fact.createOperand(rhs.getType(), std::to_string(val)));
+	}
 }
 
-IOperand const *	Odouble::operator*(IOperand const & rhs) const
+IOperand const *	Ofloat::operator*(IOperand const & rhs) const
 {
-	if (rhs.getType() == eInt8)
-	{
-		std::cout << "create an Int8" << std::endl;
-		const Int8 num = dynamic_cast<Int8 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() * num.getValue());
-		return num2;
-	}
-	if (rhs.getType() == eInt16)
-	{
-		std::cout << "create an int16" << std::endl;
-		const Int16	num = dynamic_cast<Int16 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() * num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eInt32)
-	{
-		std::cout << "create an int32" << std::endl;
-		const Int32	num = dynamic_cast<Int32 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() * num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eFloat)
-	{
-		std::cout << "create a float" << std::endl;
-		const Ofloat	num = dynamic_cast<Ofloat const &>(rhs);
-		Ofloat	*num2 = new Ofloat(getValue() * num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eDouble)
-	{
-		std::cout << "create a double" << std::endl;
-		const Odouble	num = dynamic_cast<Odouble const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() * num.getValue());
-		//if overflow throw
-		return num2;
-	}
+	double val = std::stod(rhs.toString());
 
-	return this;
+	val *= _value;
+	if (getType() >= rhs.getType())
+	{
+		return (_fact.createOperand(getType(), std::to_string(val)));
+	}
+	else
+	{
+		return (_fact.createOperand(rhs.getType(), std::to_string(val)));
+	}
 }
 
-IOperand const *	Odouble::operator/(IOperand const & rhs) const
+IOperand const *	Ofloat::operator/(IOperand const & rhs) const
 {
-	if (rhs.toString() == "0")
-		throw(std::exception()); // create an exception for division by 0
+	double val = std::stod(rhs.toString());
 
-	if (rhs.getType() == eInt8)
+	// if val == 0 throw exception
+	val /= _value;
+	if (getType() >= rhs.getType())
 	{
-		std::cout << "create an Int8" << std::endl;
-		const Int8 num = dynamic_cast<Int8 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() / num.getValue());
-		return num2;
+		return (_fact.createOperand(getType(), std::to_string(val)));
 	}
-	if (rhs.getType() == eInt16)
+	else
 	{
-		std::cout << "create an int16" << std::endl;
-		const Int16	num = dynamic_cast<Int16 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() / num.getValue());
-		//if overflow throw
-		return num2;
+		return (_fact.createOperand(rhs.getType(), std::to_string(val)));
 	}
-	if (getType() == eInt32)
-	{
-		std::cout << "create an int32" << std::endl;
-		const Int32	num = dynamic_cast<Int32 const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() / num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eFloat)
-	{
-		std::cout << "create a float" << std::endl;
-		const Ofloat	num = dynamic_cast<Ofloat const &>(rhs);
-		Ofloat	*num2 = new Ofloat(getValue() / num.getValue());
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eDouble)
-	{
-		std::cout << "create a double" << std::endl;
-		const Odouble	num = dynamic_cast<Odouble const &>(rhs);
-		Odouble	*num2 = new Odouble(getValue() / num.getValue());
-		//if overflow throw
-		return num2;
-	}
-
-	return this;
 }
 
-IOperand const *	Odouble::operator%(IOperand const & rhs) const
+IOperand const *	Ofloat::operator%(IOperand const & rhs) const
 {
-	if (rhs.toString() == "0")
-		throw(std::exception()); // create an exception for division by 0
+	double val = std::stod(rhs.toString());
 
-	if (rhs.getType() == eInt8)
+	//if val == 0 throw exception
+	val = fmod(_value, val);
+	if (getType() >= rhs.getType())
 	{
-		std::cout << "create an Int8" << std::endl;
-		const Int8 num = dynamic_cast<Int8 const &>(rhs);
-		Odouble	*num2 = new Odouble(fmod(getValue(), num.getValue()));
-		return num2;
+		return (_fact.createOperand(getType(), std::to_string(val)));
 	}
-	if (rhs.getType() == eInt16)
+	else
 	{
-		std::cout << "create an int16" << std::endl;
-		const Int16	num = dynamic_cast<Int16 const &>(rhs);
-		Odouble	*num2 = new Odouble(fmod(getValue(), num.getValue()));
-		//if overflow throw
-		return num2;
+		return (_fact.createOperand(rhs.getType(), std::to_string(val)));
 	}
-	if (getType() == eInt32)
-	{
-		std::cout << "create an int32" << std::endl;
-		const Int32	num = dynamic_cast<Int32 const &>(rhs);
-		Odouble	*num2 = new Odouble(fmod(getValue(), num.getValue()));
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eFloat)
-	{
-		std::cout << "create a float" << std::endl;
-		const Ofloat	num = dynamic_cast<Ofloat const &>(rhs);
-		Ofloat	*num2 = new Ofloat(fmod(getValue(), num.getValue()));
-		//if overflow throw
-		return num2;
-	}
-	if (getType() == eDouble)
-	{
-		std::cout << "create a double" << std::endl;
-		const Odouble	num = dynamic_cast<Odouble const &>(rhs);
-		Odouble	*num2 = new Odouble(fmod(getValue(), num.getValue()));
-		//if overflow throw
-		return num2;
-	}
-
-	return this;
 }
 
-std::string const &	Odouble::toString() const
+std::string const &	Ofloat::toString() const
 {
 	return (_str);
 }
