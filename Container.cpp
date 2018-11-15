@@ -1,7 +1,6 @@
 #include "iterator"
 #include "Container.hpp"
 #include <iostream>
-#include "Int8.hpp"
 
 Container::Container()
 {
@@ -129,7 +128,12 @@ void	Container::print()
 
 void	Container::exit()
 {
-	//delete all Operand
+	size_t	size = _vector.size();
+	for (size_t i = 0; i < size; i++)
+	{
+		delete _vector[i];
+	}
+	_vector.clear();
 }
 
 Container::~Container()

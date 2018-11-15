@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "string"
 #include "Factory.hpp"
 #include "Int8.hpp"
@@ -28,34 +29,20 @@ IOperand const *	Factory::createOperand( eOperandType type, std::string const & 
 
 IOperand const *	Factory::createInt8( std::string const & value ) const
 {
-	int nb = 0;
-	try
-	{
-		nb = std::stoi(value);
-		if (nb > 127 || nb < -128)
-			throw(std::exception());
-	}
-	catch(std::exception &e)
-	{
-		std::cout << e.what();
-	}
+	char nb = 0;
+	nb = std::stoi(value);
+	if (nb > 127 || nb < -128)
+		throw(std::out_of_range("Overflow"));
 	Int8	*num = new Int8(nb);
 	return num;
 }
 
 IOperand const *	Factory::createInt16( std::string const & value ) const
 {
-	int nb = 0;
-	try
-	{
-		nb = std::stoi(value);
-		if (nb > 32767 || nb < -32768)
-			throw(std::exception());
-	}
-	catch(std::exception &e)
-	{
-		std::cout << e.what();
-	}
+	short int nb = 0;
+	nb = std::stoi(value);
+	if (nb > 32767 || nb < -32768)
+		throw(std::out_of_range("Overflow"));
 	Int16	*num = new Int16(nb);
 	return num;
 }
@@ -63,14 +50,7 @@ IOperand const *	Factory::createInt16( std::string const & value ) const
 IOperand const *	Factory::createInt32( std::string const & value ) const
 {
 	int nb = 0;
-	try
-	{
-		nb = std::stoi(value);
-	}
-	catch(std::exception &e)
-	{
-		std::cout << e.what();
-	}
+	nb = std::stoi(value);
 	Int32	*num = new Int32(nb);
 	return num;
 }
@@ -78,14 +58,7 @@ IOperand const *	Factory::createInt32( std::string const & value ) const
 IOperand const *	Factory::createFloat( std::string const & value ) const
 {
 	float nb = 0;
-	try
-	{
-		nb = std::stof(value);
-	}
-	catch(std::exception &e)
-	{
-		std::cout << e.what();
-	}
+	nb = std::stof(value);
 	Ofloat	*num = new Ofloat(nb);
 	return num;
 }
@@ -93,14 +66,7 @@ IOperand const *	Factory::createFloat( std::string const & value ) const
 IOperand const *	Factory::createDouble( std::string const & value ) const
 {
 	double nb = 0;
-	try
-	{
-		nb = std::stod(value);
-	}
-	catch(std::exception &e)
-	{
-		std::cout << e.what();
-	}
+	nb = std::stod(value);
 	Odouble	*num = new Odouble(nb);
 	return num;
 }

@@ -1,13 +1,15 @@
 ;commentaire
-add;my com
+;add;my com
 push int8(5) ;super comment
+assert int5(8)
 ;;comment
 assert int8(5)
-assert int8(6)
-assert int16(5)
+;assert int8(6)
+;assert int16(5)
+push int32(56)
 test
-add
-pop
+mul
+dump
 pop
 dump
 push int8(24)
@@ -16,7 +18,9 @@ add
 dump
 push int32(0)
 push int32(50)
-div
+;div
+dump
+pop
 pop
 pop
 push int8(112)
@@ -24,15 +28,20 @@ push int8(111)
 push int8(108)
 push int8(112)
 push int16(112)
-print
+;print
 pop
-dump
-print
-pop
-print
-pop
+vfetwygrui
 print
 pop
 print
 pop
+print
+pop
+print
+pop
+push int8(112)
+push int8(111)
+push int8(108)
+push int8(112)
+push int16(112)
 exit

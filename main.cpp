@@ -25,12 +25,35 @@ int main(int argc, char** argv)
 		{
 			prog.push(line);
 		}
-		//prog.check();
 	}
 	else
 	{
 		//read from standard input
+		std::string	line;
+		while (getline(std::cin, line))
+		{
+			if (line == ";;")
+				break;
+			prog.push(line);
+		}
 	}
-	prog.executeAll();
+	try
+	{
+		prog.check();
+	}
+	catch(std::exception &e)
+	{
+		std::cout << "\033[1;31m" << e.what() << "\033[0m" << std::endl;
+		prog.programExit();
+		return 0;
+	}
+	try
+	{
+		prog.executeAll();
+	}
+	catch(std::exception &e)
+	{
+		std::cout << "\033[1;31m" << e.what() << "\033[0m" << std::endl;
+	}
 	return 0;
 }
