@@ -9,7 +9,7 @@ Int8::Int8()
 {
 }
 
-Int8::Int8(double nb) :
+Int8::Int8(int nb) :
 	_value(nb)
 {
 	std::stringstream ss;

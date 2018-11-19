@@ -4,22 +4,36 @@
 
 #include "Container.hpp"
 #include "IOperand.hpp"
-#include "Int8.hpp"
-#include "Int16.hpp"
 #include "Program.hpp"
 
 int main(int argc, char** argv)
 {
 	Container	con;
+	Program		prog;
+	std::string	filename;
 
-	if (argc > 2)
+	if (argc > 3)
 	{
-		std::cout << "Usage : ./abstract_vm [filename]" << std::endl;
+		std::cout << "Usage : ./abstract_vm [-i][filename]" << std::endl;
+		return (1);
 	}
-	Program	prog;
-	if (argc == 2)
+	if (argc == 3)
 	{
-		std::ifstream file(argv[1]);
+		std::string arg(argv[1]);
+		if (arg == "-i")
+			prog.setI(true);
+		else
+		{
+			std::cout << "Usage : ./abstract_vm [-i][filename]" << std::endl;
+			return (1);
+		}
+		filename = argv[2];
+	}
+	if (argc == 2)
+		filename = argv[1];
+	if (argc != 1)
+	{
+		std::ifstream file(filename);
 		std::string	line;
 		while (getline(file, line))
 		{
@@ -28,7 +42,6 @@ int main(int argc, char** argv)
 	}
 	else
 	{
-		//read from standard input
 		std::string	line;
 		while (getline(std::cin, line))
 		{
@@ -43,9 +56,8 @@ int main(int argc, char** argv)
 	}
 	catch(std::exception &e)
 	{
-		std::cout << "\033[1;31m" << e.what() << "\033[0m" << std::endl;
 		prog.programExit();
-		return 0;
+		return 1;
 	}
 	try
 	{

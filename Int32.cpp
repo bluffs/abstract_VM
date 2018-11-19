@@ -9,7 +9,7 @@ Int32::Int32()
 {
 }
 
-Int32::Int32(double nb) :
+Int32::Int32(int nb) :
 	_value(nb)
 {
 	std::stringstream	ss;

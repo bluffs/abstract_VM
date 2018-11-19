@@ -12,6 +12,7 @@ class Program
 		std::vector<std::string>	_inst;
 		Container					_cont;
 		Factory						_factory;	
+		bool						_i;
 
 	public:
 		Program();
@@ -19,10 +20,11 @@ class Program
 		~Program();
 		Program&	operator=(Program const &);
 
+		void			setI(bool);
 		void			push(std::string);
 		void			executeAll();
-		void			executeLine(std::string & str);
-		bool			check();
+		bool			executeLine(std::string & str);
+		void			check();
 		std::string		checkLine(std::string);
 		void			checkOperand(std::string str);
 		void			programExit();
@@ -50,6 +52,15 @@ class Program
 			virtual ~BadOperandException() throw();
 			virtual const char* what() const throw();
 	};
+	
+	class SyntaxErrorException : public std::exception
+	{
+		public:
+			SyntaxErrorException();
+			virtual ~SyntaxErrorException() throw();
+			virtual const char* what() const throw();
+	};
+
 };
 
 #endif

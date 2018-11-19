@@ -8,7 +8,7 @@ FLAG = #-Wall -Werror -Wextra
 
 NAME = abstract_vm
 
-SRC = main.cpp Container.cpp Int8.cpp Int16.cpp Int32.cpp Ofloat.cpp Odouble.cpp Factory.cpp Program.cpp
+SRC = main.cpp Container.cpp Factory.cpp Program.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

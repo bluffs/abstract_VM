@@ -9,7 +9,7 @@ Ofloat::Ofloat()
 {
 }
 
-Ofloat::Ofloat(double nb) :
+Ofloat::Ofloat(float nb) :
 	_value(nb)
 {
 	std::stringstream	ss;

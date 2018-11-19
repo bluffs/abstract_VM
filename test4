@@ -1,0 +1,4 @@
+push int16(32 )
+dump
+pu int(32))
+exit

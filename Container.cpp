@@ -66,7 +66,7 @@ void	Container::sub()
 	{
 		throw(SmallStackException());
 	}
-	IOperand const *	ope = *_vector[0] - *_vector[1];
+	IOperand const *	ope = *_vector[1] - *_vector[0];
 	pop();
 	pop();
 	push(ope);
@@ -78,7 +78,7 @@ void	Container::mul()
 	{
 		throw(SmallStackException());
 	}
-	IOperand const *	ope = *_vector[0] * *_vector[1];
+	IOperand const *	ope = *_vector[1] * *_vector[0];
 	pop();
 	pop();
 	push(ope);
@@ -87,12 +87,10 @@ void	Container::mul()
 void	Container::div()
 {
 	if (_vector.size() < 2)
-	{
 		throw(SmallStackException());
-	}
-	if (_vector[1]->toString() == "0")
+	if (_vector[0]->toString() == "0")
 		throw(DivisionZeroException());
-	IOperand const *	ope = *_vector[0] / *_vector[1];
+	IOperand const *	ope = *_vector[1] / *_vector[2];
 	pop();
 	pop();
 	push(ope);
@@ -101,12 +99,10 @@ void	Container::div()
 void	Container::mod()
 {
 	if (_vector.size() < 2)
-	{
 		throw(SmallStackException());
-	}
-	if (_vector[1]->toString() == "0")
+	if (_vector[0]->toString() == "0")
 		throw(DivisionZeroException());
-	IOperand const *	ope = *_vector[0] % *_vector[1];
+	IOperand const *	ope = *_vector[1] % *_vector[0];
 	pop();
 	pop();
 	push(ope);
@@ -123,7 +119,7 @@ void	Container::print()
 		throw(BadTypeException());
 	}
 	char c = stoi(_vector[0]->toString()) ;
-	std::cout << c << std::endl;
+	std::cout << c ;
 }
 
 void	Container::exit()

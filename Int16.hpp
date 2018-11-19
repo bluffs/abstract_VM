@@ -27,7 +27,7 @@ class Int16 : public IOperand
 
 		virtual ~Int16( void ) {}
 
-		Int16(double nb);
+		Int16(short int nb);
 		Int16(Int16 const & nb);
 		Int16& operator=(Int16 const & nb);
 		double				getValue() const;

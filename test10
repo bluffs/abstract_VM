@@ -1,0 +1,8 @@
+push int8(6)
+push int32(80)
+mod
+dump
+exit ;fvetw
+push int8(0)
+dump
+dump

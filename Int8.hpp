@@ -27,7 +27,7 @@ class Int8 : public IOperand
 
 		virtual ~Int8( void ) {}
 
-		Int8(double nb);
+		Int8(int nb);
 		Int8(Int8 const & nb);
 		Int8& operator=(Int8 const & nb);
 		double					getValue() const;

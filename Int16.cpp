@@ -9,7 +9,7 @@ Int16::Int16()
 {
 }
 
-Int16::Int16(double nb) :
+Int16::Int16(short int nb) :
 	_value(nb)
 {
 	std::stringstream	ss;

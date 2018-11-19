@@ -27,7 +27,7 @@ class Ofloat : public IOperand
 
 		virtual ~Ofloat( void ) {}
 
-		Ofloat(double nb);
+		Ofloat(float nb);
 		Ofloat(Ofloat const & nb);
 		Ofloat& operator=(Ofloat const & nb);
 		double				getValue() const;

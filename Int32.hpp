@@ -27,7 +27,7 @@ class Int32 : public IOperand
 
 		virtual ~Int32( void ) {}
 
-		Int32(double nb);
+		Int32(int nb);
 		Int32(Int32 const & nb);
 		Int32& operator=(Int32 const & nb);
 		double				getValue() const;
